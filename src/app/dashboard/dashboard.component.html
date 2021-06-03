@@ -1,0 +1,63 @@
+<mat-expansion-panel hideToggle *ngFor="let task of tasks">
+    <mat-expansion-panel-header>
+        <div class="row">
+            <div class="col" style="width:90%">
+      <mat-panel-title>{{task.title}}
+      </mat-panel-title>
+      </div>
+      <mat-panel-description >
+        <h6 ng-if="task.status==='Not-started'" ng-style="{color: 'red'}" >{{task.status}}</h6>
+        <h6 ng-if="task.status==='Completed'" ng-style="{color: 'green'}" >{{task.status}}</h6>
+      
+       
+      </mat-panel-description>
+    </div>
+    </mat-expansion-panel-header>
+    <div class="row">
+        <div class="col-11">
+    <p>{{task.description}}</p> 
+</div>
+    <button mat-icon-button color="primary">
+        
+        <mat-icon (click)="updateCredDialog(updatemodal)">edit</mat-icon>
+    </button>
+</div>
+  </mat-expansion-panel>
+
+
+
+
+<ng-template #updatemodal let-modal>
+    <mat-card>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Task Details edit</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <form [formGroup]="taskform" (ngSubmit)="submitCredUpdate()">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" [value]="title"
+                            formControlName="title">
+                    </div>
+                    <div class="col">
+                        <select type="text" class="form-control" [value]="status" formControlName="statusct">
+                            <option *ngFor="let status of statusdata">{{status}}</option>
+                        </select>
+                        <br>
+                    </div>                  
+                </div>
+                <div class="col">
+                    <textarea type="text" class="form-control" rows="4" [value]="detail" formControlName="discription"></textarea> 
+                    
+               </div>
+               <br>
+                <button  class="btn btn-primary" align="center" type="submit"  >Save</button>
+            </form>
+        </div>
+    
+    </mat-card>
+</ng-template>
